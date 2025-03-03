@@ -1,0 +1,10 @@
+jwt:
+  secret: mySuperSecretKey
+  expiration: 3600000
+
+google:
+  client:
+    id: 325384718235-0ki9r8af8n4ena1h8u68gh831508ovqb.apps.googleusercontent.com
+    secret: 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
+  redirect:
+    uri: http://localhost:8080/login/oauth2/code/google
