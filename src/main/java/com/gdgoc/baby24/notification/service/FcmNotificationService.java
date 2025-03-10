@@ -28,7 +28,20 @@ public class FcmNotificationService implements NotificationService {
 
     @Override
     public List<NotificationResponseDto> sendEachForMulticast(NotificationMessageDto<List<String>> request) throws FirebaseMessagingException {
-        return null;
+        final MulticastMessage message = MulticastMessage.builder()
+                .addAllTokens(request.getTargetToken())
+                .setNotification(createNotification(request.getMessage().getTitle(), request.getMessage().getBody()))
+                .build();
+
+        var response = firebaseMessaging.sendEachForMulticast(message);
+
+        if (response.getFailureCount() > 0) {
+            // TODO: 메시지가 전송되지 않은 경우 예외 처리
+        }
+
+        return response.getResponses().stream()
+                .map(sendResponse -> NotificationResponseDto.success(sendResponse.getMessageId()))
+                .toList();
     }
 
     private Notification createNotification(String title, String body) {
