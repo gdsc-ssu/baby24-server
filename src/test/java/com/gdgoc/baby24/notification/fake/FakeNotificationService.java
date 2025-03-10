@@ -26,7 +26,18 @@ public class FakeNotificationService implements NotificationService {
 
     @Override
     public List<NotificationResponseDto> sendEachForMulticast(NotificationMessageDto<List<String>> request) throws FirebaseMessagingException {
-        return null;
+        List<NotificationResponseDto> responses = new ArrayList<>();
+        for (String token : request.getTargetToken()) {
+            var singleRequest = new NotificationMessageDto<>(
+                    token,
+                    new NotificationMessageDto.Message(
+                            request.getMessage().getTitle(),
+                            request.getMessage().getBody()
+                    )
+            );
+            responses.add(send(singleRequest));
+        }
+        return responses;
     }
 
     public List<NotificationRecord> getSentNotifications() {
