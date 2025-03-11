@@ -1,2 +1,7 @@
 fcm:
   value: baby24-notification-fcm.json
+swagger:
+  server-url: ${SWAGGER_SERVER_URL:http://localhost:8080}
+springdoc:
+  swagger-ui:
+    path: /swagger
