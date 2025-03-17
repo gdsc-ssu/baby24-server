@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class DeviceService {
-    private final String STApiUrl = "https://api.smartthings.com/v1";
+    private static final String SmartThingsApiUrl = "https://api.smartthings.com/v1";
     private final DeviceRepository deviceRepository;
     private final UserRepository userRepository;
     public DeviceResponseDTO.DeviceStatusListDTO getDeviceStatusList(User user) {
