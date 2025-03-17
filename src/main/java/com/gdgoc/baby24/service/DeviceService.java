@@ -20,7 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DeviceService {
     private final String STApiUrl = "https://api.smartthings.com/v1";
-    private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
     private Map<String, String> generateSTHeader(String pat) {
         Map<String, String> headers = new HashMap<>();
@@ -35,6 +34,7 @@ public class DeviceService {
     public void addDevice(User user, String deviceIdentifier) {
         Object response = getDeviceList(user);
         Device device = DeviceConverter.toDevice(user, deviceIdentifier, response);
+        if(!device.getType().equals("Light")) throw new BusinessException(ErrorCode.DEVICE_NOT_ALLOWED);
         deviceRepository.save(device);
     }
 

@@ -12,7 +12,7 @@ public enum ErrorCode {
     ENTITY_NOT_FOUND(400, "C_005", "지정한 엔티티를 찾을 수 없습니다."),
 
     //device
-    DEVICE_NOT_ALLOWED(400,"D_001","Light만 알림용으로 설정할 수 있습니다."),
+    DEVICE_NOT_ALLOWED(400,"D_001","Light만 사용할 수 있습니다."),
     ;
 
     private final int status;

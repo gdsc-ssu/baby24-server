@@ -2,6 +2,8 @@ package com.gdgoc.baby24.converter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdgoc.baby24.common.exception.BusinessException;
+import com.gdgoc.baby24.common.exception.ErrorCode;
 import com.gdgoc.baby24.domain.Device;
 import com.gdgoc.baby24.domain.User;
 import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
@@ -50,7 +52,6 @@ public class DeviceConverter {
                 category = categoriesNode.get(0).get("name").asText();
             }
         }
-
         return Device.builder()
                 .user(user)
                 .identifier(identifier)
