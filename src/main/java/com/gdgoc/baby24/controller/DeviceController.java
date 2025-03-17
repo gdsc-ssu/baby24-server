@@ -2,6 +2,7 @@ package com.gdgoc.baby24.controller;
 
 import com.gdgoc.baby24.common.exception.BasicResponse;
 import com.gdgoc.baby24.domain.User;
+import com.gdgoc.baby24.dto.DeviceDTO.DeviceRequestDTO;
 import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
 import com.gdgoc.baby24.repository.UserRepository;
 import com.gdgoc.baby24.service.DeviceService;
@@ -24,5 +25,13 @@ public class DeviceController {
         DeviceResponseDTO.DeviceListDTO deviceListDTO = deviceService.getSTDevices(user);
         BasicResponse response = new BasicResponse(200, "SmartThings 기기 목록 조회 성공", deviceListDTO);
         return response.ok(deviceListDTO);
+    }
+    @PostMapping("/{userId}")
+    public ResponseEntity<BasicResponse> addDevice(@PathVariable Long userId, @RequestBody DeviceRequestDTO.DeviceIdentifierDTO request) {
+        //TODO: 로그인 구현 후 제거
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+        deviceService.addDevice(user, request.getDeviceIdentifier());
+        return new BasicResponse().noContent();
     }
 }
