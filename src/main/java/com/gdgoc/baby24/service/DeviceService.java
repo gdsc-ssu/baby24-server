@@ -52,7 +52,7 @@ public class DeviceService {
                 .orElseThrow(()->new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
         Map<String, String> headers = generateHeader(user.getPersonalAccessToken());
         WebClient webClient = WebClient.builder()
-                .baseUrl(STApiUrl)
+                .baseUrl(SmartThingsApiUrl)
                 .build();
         Object response = webClient.get()
                 .uri("/devices/"+device.getIdentifier()+"/components/main/capabilities/switch/status")
@@ -93,7 +93,7 @@ public class DeviceService {
         String personalAccessToken = user.getPersonalAccessToken();
         Map<String, String> headers = generateHeader(personalAccessToken);
         WebClient webClient = WebClient.builder()
-                .baseUrl(STApiUrl)
+                .baseUrl(SmartThingsApiUrl)
                 .build();
         Object response = webClient.get()
                 .uri("/devices")
