@@ -26,15 +26,6 @@ public class DeviceService {
     private final String STApiUrl = "https://api.smartthings.com/v1";
     private final DeviceRepository deviceRepository;
     private final UserRepository userRepository;
-    private Map<String, String> generateSTHeader(String personalAccessToken) {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + personalAccessToken);
-        return headers;
-    }
-    public DeviceResponseDTO.DeviceListDTO getSTDevices(User user) {
-        Object response = getDeviceList(user);
-        return DeviceConverter.toDeviceListDTO(response);
-    }
     public DeviceResponseDTO.DeviceStatusListDTO getDeviceStatusList(User user) {
         List<Device> deviceList = deviceRepository.findAllByUser(user);
 
@@ -47,11 +38,19 @@ public class DeviceService {
 
         return DeviceConverter.toDeviceStatusListDTO(statusDTOList);
     }
-
+    public DeviceResponseDTO.DeviceListDTO getSTDevices(User user) {
+        Object response = getDeviceList(user);
+        return DeviceConverter.toDeviceListDTO(response);
+    }
+    private Map<String, String> generateHeader(String personalAccessToken) {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Bearer " + personalAccessToken);
+        return headers;
+    }
     public String getDeviceStatus(Device device) {
         User user = userRepository.findById(device.getUser().getId())
                 .orElseThrow(()->new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
-        Map<String, String> headers = generateSTHeader(user.getPersonalAccessToken());
+        Map<String, String> headers = generateHeader(user.getPersonalAccessToken());
         WebClient webClient = WebClient.builder()
                 .baseUrl(STApiUrl)
                 .build();
@@ -92,7 +91,7 @@ public class DeviceService {
 
     private Object getDeviceList(User user) {
         String personalAccessToken = user.getPersonalAccessToken();
-        Map<String, String> headers = generateSTHeader(personalAccessToken);
+        Map<String, String> headers = generateHeader(personalAccessToken);
         WebClient webClient = WebClient.builder()
                 .baseUrl(STApiUrl)
                 .build();
