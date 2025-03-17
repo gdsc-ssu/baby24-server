@@ -15,9 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String username;
-    String email;
-    String PAT;
+    private String username;
+    private String email;
+    private String personalAccessToken;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Device> reviews = new ArrayList<>();
 }
