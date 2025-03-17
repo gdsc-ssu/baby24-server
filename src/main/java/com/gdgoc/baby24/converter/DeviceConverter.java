@@ -71,6 +71,7 @@ public class DeviceConverter {
                 .name(device.getName())
                 .type(device.getType())
                 .status(status)
+                .alert(device.getAlert())
                 .build();
     }
 

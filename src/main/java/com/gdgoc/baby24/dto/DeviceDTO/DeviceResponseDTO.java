@@ -34,6 +34,7 @@ public class DeviceResponseDTO {
         String name;
         String type;
         String status;
+        Boolean alert;
     }
     @Getter
     @Builder
