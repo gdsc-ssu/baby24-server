@@ -22,7 +22,7 @@ public class DeviceController {
         //TODO: 로그인 구현 후 제거
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
-        DeviceResponseDTO.DeviceListDTO deviceListDTO = deviceService.getSTDevices(user);
+        DeviceResponseDTO.DeviceListDTO deviceListDTO = deviceService.getDevices(user);
         BasicResponse response = new BasicResponse(200, "SmartThings 기기 목록 조회 성공", deviceListDTO);
         return response.ok(deviceListDTO);
     }

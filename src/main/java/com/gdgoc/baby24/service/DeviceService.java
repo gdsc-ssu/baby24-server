@@ -38,7 +38,7 @@ public class DeviceService {
 
         return DeviceConverter.toDeviceStatusListDTO(statusDTOList);
     }
-    public DeviceResponseDTO.DeviceListDTO getSTDevices(User user) {
+    public DeviceResponseDTO.DeviceListDTO getDevices(User user) {
         Object response = getDeviceList(user);
         return DeviceConverter.toDeviceListDTO(response);
     }
