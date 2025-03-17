@@ -16,9 +16,14 @@ public class Device {
     private String name;
     private String type;
     private String status;
+    private Boolean alert;
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void setAlert(Boolean alert) {
+        this.alert = alert;
+    }
 
 }

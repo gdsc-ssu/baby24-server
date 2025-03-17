@@ -55,6 +55,7 @@ public class DeviceConverter {
                 .user(user)
                 .identifier(identifier)
                 .name(name)
+                .alert(false)
                 .type(category)
                 .build();
     }

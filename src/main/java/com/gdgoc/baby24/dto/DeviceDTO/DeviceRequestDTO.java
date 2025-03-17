@@ -7,4 +7,8 @@ public class DeviceRequestDTO {
     public static class DeviceIdentifierDTO {
         String deviceIdentifier;
     }
+    @Getter
+    public static class DeviceIdDTO {
+        Long deviceId;
+    }
 }

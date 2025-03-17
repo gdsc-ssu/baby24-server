@@ -34,4 +34,15 @@ public class DeviceController {
         deviceService.addDevice(user, request.getDeviceIdentifier());
         return new BasicResponse().noContent();
     }
+    @PostMapping("/set-alert")
+    public ResponseEntity<BasicResponse> setAlertDevice(@RequestBody DeviceRequestDTO.DeviceIdDTO request) {
+        deviceService.setDeviceAlert(request.getDeviceId());
+        return new BasicResponse().noContent();
+    }
+    @PostMapping("/remove-alert")
+    public ResponseEntity<BasicResponse> removeAlertDevice(@RequestBody DeviceRequestDTO.DeviceIdDTO request) {
+        deviceService.removeDeviceAlert(request.getDeviceId());
+        return new BasicResponse().noContent();
+    }
+
 }

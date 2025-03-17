@@ -1,5 +1,8 @@
 package com.gdgoc.baby24.service;
 
+import com.gdgoc.baby24.common.exception.BusinessException;
+import com.gdgoc.baby24.common.exception.ErrorCode;
+import com.gdgoc.baby24.common.exception.NotFoundException;
 import com.gdgoc.baby24.converter.DeviceConverter;
 import com.gdgoc.baby24.domain.Device;
 import com.gdgoc.baby24.domain.User;
@@ -34,6 +37,22 @@ public class DeviceService {
         Device device = DeviceConverter.toDevice(user, deviceIdentifier, response);
         deviceRepository.save(device);
     }
+
+    public void setDeviceAlert(Long deviceId) {
+        Device device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+        if(!device.getType().equals("Light")) throw new BusinessException(ErrorCode.DEVICE_NOT_ALLOWED);
+        device.setAlert(true);
+        deviceRepository.save(device);
+    }
+    public void removeDeviceAlert(Long deviceId) {
+        Device device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+        device.setAlert(false);
+        deviceRepository.save(device);
+    }
+
+
 
     private Object getDeviceList(User user) {
         String pat = user.getPAT();
