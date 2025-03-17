@@ -77,7 +77,7 @@ public class DeviceService {
 
     public void setDeviceAlert(Long deviceId) {
         Device device = deviceRepository.findById(deviceId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
         if(!device.getType().equals("Light")) throw new BusinessException(ErrorCode.DEVICE_NOT_ALLOWED);
         device.setAlert(true);
         deviceRepository.save(device);
