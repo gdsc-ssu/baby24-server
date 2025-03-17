@@ -26,9 +26,9 @@ public class DeviceService {
     private final String STApiUrl = "https://api.smartthings.com/v1";
     private final DeviceRepository deviceRepository;
     private final UserRepository userRepository;
-    private Map<String, String> generateSTHeader(String pat) {
+    private Map<String, String> generateSTHeader(String personalAccessToken) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + pat);
+        headers.put("Authorization", "Bearer " + personalAccessToken);
         return headers;
     }
     public DeviceResponseDTO.DeviceListDTO getSTDevices(User user) {
@@ -45,14 +45,13 @@ public class DeviceService {
                 })
                 .collect(Collectors.toList());
 
-        // DTO 리스트를 응답 객체로 변환
         return DeviceConverter.toDeviceStatusListDTO(statusDTOList);
     }
 
     public String getDeviceStatus(Device device) {
         User user = userRepository.findById(device.getUser().getId())
                 .orElseThrow(()->new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
-        Map<String, String> headers = generateSTHeader(user.getPAT());
+        Map<String, String> headers = generateSTHeader(user.getPersonalAccessToken());
         WebClient webClient = WebClient.builder()
                 .baseUrl(STApiUrl)
                 .build();
@@ -92,8 +91,8 @@ public class DeviceService {
     }
 
     private Object getDeviceList(User user) {
-        String pat = user.getPAT();
-        Map<String, String> headers = generateSTHeader(pat);
+        String personalAccessToken = user.getPersonalAccessToken();
+        Map<String, String> headers = generateSTHeader(personalAccessToken);
         WebClient webClient = WebClient.builder()
                 .baseUrl(STApiUrl)
                 .build();
