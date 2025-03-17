@@ -19,6 +19,10 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    // 비상연락망 필드 추가
+    @Column(name = "emergency_contact")
+    private String emergencyContact;
+
     // Getters and setters
     public Long getId() {
         return id;
@@ -44,5 +48,10 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
 }
