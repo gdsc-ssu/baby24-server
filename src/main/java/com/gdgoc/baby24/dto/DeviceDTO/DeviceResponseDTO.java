@@ -24,4 +24,22 @@ public class DeviceResponseDTO {
     public static class DeviceListDTO {
         List<DeviceDTO> deviceDTOList;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeviceStatusDTO {
+        Long deviceId;
+        String name;
+        String type;
+        String status;
+    }
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeviceStatusListDTO {
+        List<DeviceStatusDTO> deviceStatusDTOList;
+    }
 }

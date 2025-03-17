@@ -34,6 +34,15 @@ public class DeviceController {
         deviceService.addDevice(user, request.getDeviceIdentifier());
         return new BasicResponse().noContent();
     }
+    @GetMapping("/status/{userId}")
+    public ResponseEntity<BasicResponse> getDevicesStatus(@PathVariable Long userId) {
+        //TODO: 로그인 구현 후 제거
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+        DeviceResponseDTO.DeviceStatusListDTO result = deviceService.getDeviceStatusList(user);
+        BasicResponse response = new BasicResponse(200, "기기 목록 및 상태 조회 성공", result);
+        return response.ok(result);
+    }
     @PostMapping("/set-alert")
     public ResponseEntity<BasicResponse> setAlertDevice(@RequestBody DeviceRequestDTO.DeviceIdDTO request) {
         deviceService.setDeviceAlert(request.getDeviceId());

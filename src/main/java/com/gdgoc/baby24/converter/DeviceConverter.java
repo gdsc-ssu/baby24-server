@@ -2,8 +2,6 @@ package com.gdgoc.baby24.converter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gdgoc.baby24.common.exception.BusinessException;
-import com.gdgoc.baby24.common.exception.ErrorCode;
 import com.gdgoc.baby24.domain.Device;
 import com.gdgoc.baby24.domain.User;
 import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
@@ -60,4 +58,21 @@ public class DeviceConverter {
                 .type(category)
                 .build();
     }
+
+    public static DeviceResponseDTO.DeviceStatusListDTO toDeviceStatusListDTO(
+            List<DeviceResponseDTO.DeviceStatusDTO> deviceStatusDTOList) {
+        return DeviceResponseDTO.DeviceStatusListDTO.builder()
+                .deviceStatusDTOList(deviceStatusDTOList)
+                .build();
+    }
+    public static DeviceResponseDTO.DeviceStatusDTO toDeviceStatusDTO(Device device, String status) {
+        return DeviceResponseDTO.DeviceStatusDTO.builder()
+                .deviceId(device.getId())
+                .name(device.getName())
+                .type(device.getType())
+                .status(status)
+                .build();
+    }
+
+
 }

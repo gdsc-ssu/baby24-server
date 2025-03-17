@@ -1,5 +1,7 @@
 package com.gdgoc.baby24.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdgoc.baby24.common.exception.BusinessException;
 import com.gdgoc.baby24.common.exception.ErrorCode;
 import com.gdgoc.baby24.common.exception.NotFoundException;
@@ -14,13 +16,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DeviceService {
     private final String STApiUrl = "https://api.smartthings.com/v1";
     private final DeviceRepository deviceRepository;
+    private final UserRepository userRepository;
     private Map<String, String> generateSTHeader(String pat) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + pat);
@@ -29,6 +34,40 @@ public class DeviceService {
     public DeviceResponseDTO.DeviceListDTO getSTDevices(User user) {
         Object response = getDeviceList(user);
         return DeviceConverter.toDeviceListDTO(response);
+    }
+    public DeviceResponseDTO.DeviceStatusListDTO getDeviceStatusList(User user) {
+        List<Device> deviceList = deviceRepository.findAllByUser(user);
+
+        List<DeviceResponseDTO.DeviceStatusDTO> statusDTOList = deviceList.stream()
+                .map(device -> {
+                    String status = getDeviceStatus(device);
+                    return DeviceConverter.toDeviceStatusDTO(device, status);
+                })
+                .collect(Collectors.toList());
+
+        // DTO 리스트를 응답 객체로 변환
+        return DeviceConverter.toDeviceStatusListDTO(statusDTOList);
+    }
+
+    public String getDeviceStatus(Device device) {
+        User user = userRepository.findById(device.getUser().getId())
+                .orElseThrow(()->new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
+        Map<String, String> headers = generateSTHeader(user.getPAT());
+        WebClient webClient = WebClient.builder()
+                .baseUrl(STApiUrl)
+                .build();
+        Object response = webClient.get()
+                .uri("/devices/"+device.getIdentifier()+"/components/main/capabilities/switch/status")
+                .headers(httpHeaders -> {
+                    headers.forEach(httpHeaders::add);
+                })
+                .retrieve()
+                .bodyToMono(Object.class)
+                .block();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = mapper.valueToTree(response);
+        String status = rootNode.get("switch").get("value").asText();
+        return status;
     }
 
     public void addDevice(User user, String deviceIdentifier) {
@@ -51,8 +90,6 @@ public class DeviceService {
         device.setAlert(false);
         deviceRepository.save(device);
     }
-
-
 
     private Object getDeviceList(User user) {
         String pat = user.getPAT();
