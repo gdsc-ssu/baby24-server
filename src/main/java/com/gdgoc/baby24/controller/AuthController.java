@@ -41,18 +41,26 @@ public class AuthController {
     // 2. 구글 로그인 콜백: 구글에서 인증 후 호출되는 엔드포인트
     @GetMapping("/google/callback")
     public ResponseEntity<?> googleCallback(@RequestParam("code") String code) {
-        // 인증 코드를 액세스 토큰으로 교환
-        GoogleTokenResponse tokenResponse = googleAuthService.getToken(code);
-        // 액세스 토큰을 사용해 사용자 정보 조회
-        GoogleUserInfo userInfo = googleAuthService.getUserInfo(tokenResponse.getAccess_token());
+        try {
+            // 인증 코드를 액세스 토큰으로 교환
+            GoogleTokenResponse tokenResponse = googleAuthService.getToken(code);
+            // 액세스 토큰을 사용해 사용자 정보 조회
+            GoogleUserInfo userInfo = googleAuthService.getUserInfo(tokenResponse.getAccess_token());
 
-        // 여기서 데이터베이스에 해당 사용자가 존재하는지 확인 후 신규 가입 또는 기존 사용자 로그인 처리를 수행합니다.
-        // 예를 들어, 사용자 정보를 조회한 후 JWT 토큰을 생성하고, 최종적으로 클라이언트에 토큰과 사용자 정보를 반환할 수 있습니다.
-        // 이번 예제에서는 간단하게 구글에서 받은 사용자 정보와 액세스 토큰을 반환합니다.
-
-        return ResponseEntity.ok(Map.of(
-                "accessToken", tokenResponse.getAccess_token(),
-                "userInfo", userInfo
-        ));
+            // 토큰과 사용자 정보가 정상적으로 조회된 경우 로그인 성공
+            if (tokenResponse != null && userInfo != null) {
+                // 추가적인 사용자 처리(예: DB 저장, JWT 생성 등)를 여기에 추가할 수 있습니다.
+                return ResponseEntity.ok(Map.of(
+                        "accessToken", tokenResponse.getAccess_token(),
+                        "userInfo", userInfo
+                ));
+            } else {
+                // 인증 과정 실패 시 502 상태 반환
+                return ResponseEntity.status(502).body(Map.of("message", "구글 인증 실패"));
+            }
+        } catch (Exception e) {
+            // 예외 발생 시에도 502 상태 반환
+            return ResponseEntity.status(502).body(Map.of("message", "로그인 중 에러 발생", "error", e.getMessage()));
+        }
     }
 }
