@@ -1,57 +1,59 @@
 package com.gdgoc.baby24.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    // 사용자 이름
+    @Column
+    private String username;
+
+    // 이메일
+    @Column
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+    // 구글 아이디
+    @Column
+    private Integer googleId;
 
-    @Column(nullable = false)
-    private String name;
+    // 생성 일시
+    @Column
+    private LocalDateTime createdAt;
 
-    // 비상연락망 필드 추가
-    @Column(name = "emergency_contact")
-    private String emergencyContact;
+    // PAT (예: 토큰)
+    @Column
+    private String PAT;
 
-    // Getters and setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getEmergencyContact() {
-        return emergencyContact;
-    }
-    public void setEmergencyContact(String emergencyContact) {
-        this.emergencyContact = emergencyContact;
-    }
+    // 비상연락망
+    @Column
+    private Integer emergencyContacts;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Device> devices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> rooms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventCommand> eventCommands = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Analysis> analyses = new ArrayList<>();
 }
