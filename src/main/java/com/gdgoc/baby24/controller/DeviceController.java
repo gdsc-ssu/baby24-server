@@ -53,5 +53,13 @@ public class DeviceController {
         deviceService.removeDeviceAlert(request.getDeviceId());
         return new BasicResponse().noContent();
     }
+    @PostMapping("/alert/on/{userId}")
+    public ResponseEntity<BasicResponse> onDevice(@PathVariable Long userId) {
+        //TODO: 로그인 구현 후 제거
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("유저가 없습니다."));
+        deviceService.onAllAlertLightDevices(user);
+        return new BasicResponse().noContent();
+    }
 
 }
