@@ -50,7 +50,7 @@ public class Device {
     @Setter
       @ManyToOne(fetch = FetchType.LAZY)
       @JoinColumn(name = "user_id")
-      private User user;
+      private Users user;
   
       public void setAlert(Boolean alert) {
           this.alert = alert;
