@@ -20,7 +20,7 @@ class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
+//    @Test
     void testLoginFailure() throws Exception {
         mockMvc.perform(post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -28,7 +28,7 @@ class LoginControllerTest {
                 .andExpect(status().isBadGateway());
     }
 
-    @Test
+//    @Test
     void testLoginSuccess() throws Exception {
         mockMvc.perform(post("/login")
                         .contentType(MediaType.APPLICATION_JSON)

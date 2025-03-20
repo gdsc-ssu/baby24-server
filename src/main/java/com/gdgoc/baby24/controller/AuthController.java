@@ -3,7 +3,7 @@ package com.gdgoc.baby24.controller;
 import com.gdgoc.baby24.dto.GoogleTokenResponse;
 import com.gdgoc.baby24.dto.GoogleUserInfo;
 import com.gdgoc.baby24.dto.UpdateUserInfoRequest;
-import com.gdgoc.baby24.domain.Users;
+import com.gdgoc.baby24.domain.User;
 import com.gdgoc.baby24.repository.UserRepository;
 import com.gdgoc.baby24.service.GoogleAuthService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -78,7 +78,7 @@ public class AuthController {
         String email = principal.getName();
 
         // 사용자 정보 조회
-        Users user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // 추가 입력 받은 정보 업데이트 (예: 이름, 비상 연락망 등)
