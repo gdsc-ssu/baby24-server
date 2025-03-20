@@ -8,3 +8,40 @@ google:
     secret: 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
   redirect:
     uri: http://localhost:8080/login/oauth2/code/google
+
+fcm:
+  value: baby24-notification-fcm.json
+
+swagger:
+  server-url: ${SWAGGER_SERVER_URL:http://localhost:8080}
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  sql:
+    init:
+      mode: never
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+        default_batch_fetch_size: 1000
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB

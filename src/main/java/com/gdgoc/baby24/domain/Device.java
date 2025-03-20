@@ -2,7 +2,6 @@ package com.gdgoc.baby24.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +26,11 @@ public class Device {
 
     // 기기 이름
     @Column
-    private String deviceName;
+    private String Name;
 
     // 기기 종류
     @Column
-    private String deviceType;
+    private String Type;
 
     // 기기 유일번호
     @Column
@@ -44,8 +43,21 @@ public class Device {
     // 기기 등록 일시
     @Column
     private LocalDateTime registeredAt;
+  
+    @Column
+    private Boolean alert;
+  
+    @Setter
+      @ManyToOne(fetch = FetchType.LAZY)
+      @JoinColumn(name = "user_id")
+      private User user;
+  
+      public void setAlert(Boolean alert) {
+          this.alert = alert;
+      }
 
 
     @OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventCommand> eventCommands = new ArrayList<>();
+
 }
