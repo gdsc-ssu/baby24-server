@@ -3,7 +3,7 @@ package com.gdgoc.baby24.converter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdgoc.baby24.domain.Device;
-import com.gdgoc.baby24.domain.Users;
+import com.gdgoc.baby24.domain.User;
 import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class DeviceConverter {
                 .build();
     }
 
-    public static Device toDevice(Users user, String identifier, Object response) {
+    public static Device toDevice(User user, String identifier, Object response) {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.valueToTree(response);
         String name = null;
