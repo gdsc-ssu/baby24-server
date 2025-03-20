@@ -20,27 +20,17 @@ public class Stream {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // FK: Room
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    // 스트리밍 URL
-    @Column
     private String url;
 
-    // 스트리밍 상태
-    @Column
     private String status;
 
-    // 시작 시간
-    @Column
     private LocalDateTime startedAt;
 
-    // 종료 시간
-    @Column
     private LocalDateTime endedAt;
-
 
     @OneToMany(mappedBy = "stream", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Analysis> analyses = new ArrayList<>();

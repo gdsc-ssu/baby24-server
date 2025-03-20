@@ -18,25 +18,17 @@ public class EventCommand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // FK: Device
     @ManyToOne
     @JoinColumn(name = "device_id")
     private Device device;
 
-    // FK: User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users users;
+    private User user;
 
-    // 이벤트 이름
-    @Column
     private String event;
 
-    // 실행할 명령
-    @Column
     private String commandAction;
 
-    // 명령 등록 일시
-    @Column
     private LocalDateTime createdAt;
 }

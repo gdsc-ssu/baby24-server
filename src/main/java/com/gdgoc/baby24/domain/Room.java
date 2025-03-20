@@ -20,24 +20,13 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // FK: User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users users;
+    private User user;
 
-    // 방 이름
-    @Column
     private String roomName;
 
-    // 생성 일시
-    @Column
     private LocalDateTime createdAt;
-
-
-    // @Column
-    // private Integer id3;
-    // @Column
-    // private Integer id22;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stream> streams = new ArrayList<>();

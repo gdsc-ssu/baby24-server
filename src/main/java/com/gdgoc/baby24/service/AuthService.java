@@ -2,7 +2,7 @@ package com.gdgoc.baby24.service;
 
 import com.gdgoc.baby24.dto.LoginRequest;
 import com.gdgoc.baby24.dto.LoginResponse;
-import com.gdgoc.baby24.domain.Users;
+import com.gdgoc.baby24.domain.User;
 import com.gdgoc.baby24.exception.AuthenticationException;
 import com.gdgoc.baby24.repository.UserRepository;
 import com.gdgoc.baby24.util.JwtTokenProvider;
@@ -26,7 +26,7 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest loginRequest) {
         // 사용자 조회
-        Users user = userRepository.findByEmail(loginRequest.getEmail())
+        User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new AuthenticationException("User not found"));
 
         // 비밀번호 비교
