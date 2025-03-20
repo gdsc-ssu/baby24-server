@@ -7,7 +7,7 @@ import com.gdgoc.baby24.common.exception.ErrorCode;
 import com.gdgoc.baby24.common.exception.NotFoundException;
 import com.gdgoc.baby24.converter.DeviceConverter;
 import com.gdgoc.baby24.domain.Device;
-import com.gdgoc.baby24.domain.User;
+import com.gdgoc.baby24.domain.Users;
 import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
 import com.gdgoc.baby24.repository.DeviceRepository;
 import com.gdgoc.baby24.repository.UserRepository;
@@ -26,7 +26,7 @@ public class DeviceService {
     private static final String SmartThingsApiUrl = "https://api.smartthings.com/v1";
     private final DeviceRepository deviceRepository;
     private final UserRepository userRepository;
-    public DeviceResponseDTO.DeviceStatusListDTO getDeviceStatusList(User user) {
+    public DeviceResponseDTO.DeviceStatusListDTO getDeviceStatusList(Users user) {
         List<Device> deviceList = deviceRepository.findAllByUser(user);
 
         List<DeviceResponseDTO.DeviceStatusDTO> statusDTOList = deviceList.stream()
@@ -38,7 +38,7 @@ public class DeviceService {
 
         return DeviceConverter.toDeviceStatusListDTO(statusDTOList);
     }
-    public DeviceResponseDTO.DeviceListDTO getDevices(User user) {
+    public DeviceResponseDTO.DeviceListDTO getDevices(Users user) {
         Object response = getDeviceList(user);
         return DeviceConverter.toDeviceListDTO(response);
     }
@@ -48,7 +48,7 @@ public class DeviceService {
         return headers;
     }
     public String getDeviceStatus(Device device) {
-        User user = userRepository.findById(device.getUser().getId())
+        Users user = userRepository.findById(device.getUser().getId())
                 .orElseThrow(()->new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
         Map<String, String> headers = generateHeader(user.getPersonalAccessToken());
         WebClient webClient = WebClient.builder()
@@ -68,7 +68,7 @@ public class DeviceService {
         return status;
     }
 
-    public void addDevice(User user, String deviceIdentifier) {
+    public void addDevice(Users user, String deviceIdentifier) {
         Object response = getDeviceList(user);
         Device device = DeviceConverter.toDevice(user, deviceIdentifier, response);
         if(!device.getType().equals("Light")) throw new BusinessException(ErrorCode.DEVICE_NOT_ALLOWED);
@@ -89,7 +89,7 @@ public class DeviceService {
         deviceRepository.save(device);
     }
 
-    private Object getDeviceList(User user) {
+    private Object getDeviceList(Users user) {
         String personalAccessToken = user.getPersonalAccessToken();
         Map<String, String> headers = generateHeader(personalAccessToken);
         WebClient webClient = WebClient.builder()

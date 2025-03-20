@@ -1,19 +1,35 @@
+jwt:
+  secret: mySuperSecretKey
+  expiration: 3600000
+
+google:
+  client:
+    id: 325384718235-0ki9r8af8n4ena1h8u68gh831508ovqb.apps.googleusercontent.com
+    secret: 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
+  redirect:
+    uri: http://localhost:8080/login/oauth2/code/google
+
 fcm:
   value: baby24-notification-fcm.json
+
 swagger:
   server-url: ${SWAGGER_SERVER_URL:http://localhost:8080}
+
 springdoc:
   swagger-ui:
     path: /swagger
+
 spring:
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   sql:
     init:
       mode: never
+
   jpa:
     properties:
       hibernate:
@@ -24,6 +40,7 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+
   servlet:
     multipart:
       max-file-size: 5MB
