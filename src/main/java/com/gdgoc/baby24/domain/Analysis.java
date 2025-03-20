@@ -26,7 +26,7 @@ public class Analysis {
     // FK: User (ERD 상에 사용자 식별자가 있으면)
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     // 분석 결과
     @Column

@@ -10,29 +10,52 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 사용자 이름
     @Column
     private String username;
 
+    public String getName() {
+        return username;
+    }
+    public void setName(String name) {
+        this.username = name;
+    }
+
+    // 이메일
     @Column
     private String email;
+
+    // 구글 아이디
+    @Column
+    private Integer googleId;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column
     private String personalAccessToken; // PAT 필드 이름 변경 (main 브랜치 반영)
 
-    @Column
-    private Integer googleId;
 
+
+    // 비상연락망
     @Column
-    private Integer emergencyContacts;
+    private String emergencyContact;
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+
 
     @Column
     private LocalDateTime createdAt;

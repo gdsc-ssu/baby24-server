@@ -26,7 +26,7 @@ public class EventCommand {
     // FK: User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users users;
 
     // 이벤트 이름
     @Column

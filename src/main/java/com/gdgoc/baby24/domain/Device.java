@@ -22,7 +22,7 @@ public class Device {
     // FK: User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users users;
 
     // 기기 이름
     @Column

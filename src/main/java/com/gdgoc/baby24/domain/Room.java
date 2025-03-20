@@ -23,7 +23,7 @@ public class Room {
     // FK: User
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users users;
 
     // 방 이름
     @Column
