@@ -39,7 +39,7 @@ env:
   PROJECT_ID: 'baby24-7cbf0'
   REGION: 'asia-northeast3'
   SERVICE: 'baby24-server'
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/659622704403/locations/global/workloadIdentityPools/baby24-github-actions/subject/baby24-github-actions'
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/659622704403/locations/global/workloadIdentityPools/baby24-github-actions/providers/baby24-github-actions'
 jobs:
   deploy:
     runs-on: 'ubuntu-latest'
