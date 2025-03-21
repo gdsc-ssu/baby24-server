@@ -12,6 +12,7 @@ import com.gdgoc.baby24.dto.DeviceDTO.DeviceResponseDTO;
 import com.gdgoc.baby24.repository.DeviceRepository;
 import com.gdgoc.baby24.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -104,6 +105,38 @@ public class DeviceService {
                 .bodyToMono(Object.class)
                 .block();
 
+        return response;
+    }
+
+    public void onAllAlertLightDevices(User user) {
+        List<Device> alertDeviceList = deviceRepository.findAlertDeviceByUser(user);
+        for(Device device : alertDeviceList) {
+            makeLightCommand(user, device, "on");
+        }
+    }
+    private Object makeLightCommand(User user, Device device, String request) {
+        Map<String, String> headers = generateHeader(user.getPersonalAccessToken());
+        WebClient webClient = WebClient.builder()
+                .baseUrl(SmartThingsApiUrl)
+                .build();
+        Map<String, Object> commandMap = Map.of(
+                "component", "main",
+                "capability", "switch",
+                "command", request
+        );
+        Map<String, Object> payload = Map.of(
+                "commands", List.of(commandMap)
+        );
+        Object response = webClient.post()
+                .uri("/devices/" + device.getIdentifier() + "/commands")
+                .headers(httpHeaders -> {
+                    headers.forEach(httpHeaders::add);
+                })
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(payload)
+                .retrieve()
+                .bodyToMono(Object.class)
+                .block();
         return response;
     }
 }
