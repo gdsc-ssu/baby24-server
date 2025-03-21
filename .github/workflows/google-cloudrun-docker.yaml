@@ -76,7 +76,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build --exclude-task test
+        run: ./gradlew :bootJar
 
       - name: Decode Dockerfile from secret and save it
         run: |
@@ -97,7 +97,7 @@ jobs:
       - name: 'Build and Push Container'
         run: |-
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia-northeast3-docker.pkg.dev
-          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}:${{ github.sha }}"
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/baby24-server:${{ github.sha }}"
           docker build --tag "${DOCKER_TAG}" .
           docker push "${DOCKER_TAG}"
       - name: 'Deploy to Cloud Run'
@@ -106,13 +106,12 @@ jobs:
 
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
-          service: 'tle-server'
+          service: 'baby24-server'
           region: '${{ env.REGION }}'
           # NOTE: If using a pre-built image, update the image name below:
 
-          image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}:${{ github.sha }}'
+          image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/baby24-server:${{ github.sha }}'
       # If required, use the Cloud Run URL output in later steps
       - name: 'Show output'
         run: |2-
-
           echo ${{ steps.deploy.outputs.url }}
