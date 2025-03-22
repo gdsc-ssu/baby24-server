@@ -19,17 +19,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     private String username;
 
+    @Setter
     private String email;
 
-    private Integer googleId;
+    @Setter
+    private String googleId;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
     private String personalAccessToken;
 
+    @Setter
     private String emergencyContact;
 
     private LocalDateTime createdAt;
@@ -45,10 +49,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Analysis> analyses = new ArrayList<>();
-
-    public void setEmergencyContact(String emergencyContact) {
-        this.emergencyContact = emergencyContact;
-    }
 
     public String getName() {
         return username;
