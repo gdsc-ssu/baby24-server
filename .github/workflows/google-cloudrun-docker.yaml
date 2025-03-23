@@ -33,12 +33,14 @@ name: 'Build and Deploy to Cloud Run'
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "main"
+      - "cd-test"
 
 env:
   PROJECT_ID: 'baby24-7cbf0'
   REGION: 'asia-northeast3'
-  SERVICE: 'baby24-server'
+  SERVICE: 'baby24'
   WORKLOAD_IDENTITY_PROVIDER: 'projects/659622704403/locations/global/workloadIdentityPools/baby24-github-actions/providers/github-actions'
 jobs:
   deploy:
@@ -110,6 +112,10 @@ jobs:
 
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/baby24-server:${{ github.sha }}'
       # If required, use the Cloud Run URL output in later steps
+          env_vars: |
+            DB_URL=${{ secrets.DB_URL }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
       - name: 'Show output'
         run: |2-
           echo ${{ steps.deploy.outputs.url }}
