@@ -83,6 +83,9 @@ jobs:
           echo "$DOCKERFILE" > Dockerfile
         env:
           DOCKERFILE: ${{ secrets.DOCKERFILE }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       # BEGIN - Docker auth and build
       #
