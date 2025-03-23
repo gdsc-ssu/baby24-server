@@ -106,7 +106,7 @@ jobs:
 
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
-          service: 'baby24-server'
+          service: 'baby24'
           region: '${{ env.REGION }}'
           # NOTE: If using a pre-built image, update the image name below:
 
