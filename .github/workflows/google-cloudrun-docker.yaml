@@ -83,9 +83,6 @@ jobs:
           echo "$DOCKERFILE" > Dockerfile
         env:
           DOCKERFILE: ${{ secrets.DOCKERFILE }}
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       # BEGIN - Docker auth and build
       #
@@ -115,6 +112,10 @@ jobs:
 
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/baby24-server:${{ github.sha }}'
       # If required, use the Cloud Run URL output in later steps
+          env_vars: |
+            DB_URL=${{ secrets.DB_URL }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
       - name: 'Show output'
         run: |2-
           echo ${{ steps.deploy.outputs.url }}
