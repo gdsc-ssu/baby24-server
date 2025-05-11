@@ -2,12 +2,6 @@ jwt:
   secret: mySuperSecretKey
   expiration: 3600000
 
-google:
-  client:
-    id: 325384718235-0ki9r8af8n4ena1h8u68gh831508ovqb.apps.googleusercontent.com
-    secret: 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
-  redirect:
-    uri: http://localhost:8080/login/oauth2/code/google
 
 fcm:
   value: baby24-notification-fcm.json
@@ -21,10 +15,22 @@ springdoc:
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/baby24?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            scope:
+              - profile
+              - email
 
   sql:
     init:
