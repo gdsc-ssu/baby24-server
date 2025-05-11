@@ -1,7 +1,9 @@
+server:
+  port: 8080
+
 jwt:
   secret: mySuperSecretKey
   expiration: 3600000
-
 
 fcm:
   value: baby24-notification-fcm.json
