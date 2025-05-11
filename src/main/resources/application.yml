@@ -1,6 +1,3 @@
-server:
-  port: ${PORT:8080}
-
 jwt:
   secret: mySuperSecretKey
   expiration: 3600000
@@ -10,7 +7,7 @@ fcm:
   value: baby24-notification-fcm.json
 
 swagger:
-  server-url: http://localhost:8080
+  server-url: ${SWAGGER_SERVER_URL:http://localhost:8080}
 
 springdoc:
   swagger-ui:
@@ -18,9 +15,9 @@ springdoc:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/siyeonson?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 12345678
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   security:
@@ -30,7 +27,7 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8080/login/oauth2/code/google}
             scope:
               - profile
               - email
@@ -42,7 +39,6 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: create-drop
         dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
         format_sql: true
