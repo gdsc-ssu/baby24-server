@@ -33,12 +33,13 @@ name: 'Build and Deploy to Cloud Run'
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "main"
 
 env:
   PROJECT_ID: 'baby24-7cbf0'
   REGION: 'asia-northeast3'
-  SERVICE: 'baby24-server'
+  SERVICE: 'baby24'
   WORKLOAD_IDENTITY_PROVIDER: 'projects/659622704403/locations/global/workloadIdentityPools/baby24-github-actions/providers/github-actions'
 jobs:
   deploy:
@@ -69,6 +70,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+
+      - name: Restore Firebase service account key
+        run: |
+          mkdir -p ./src/main/resources
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > ./src/main/resources/baby24-notification-fcm.json
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -110,6 +116,14 @@ jobs:
 
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}/baby24-server:${{ github.sha }}'
       # If required, use the Cloud Run URL output in later steps
+          env_vars: |
+            DB_URL=${{ secrets.DB_URL }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_REDIRECT_URI=${{ secrets.GOOGLE_REDIRECT_URI }}
+            SWAGGER_SERVER_URL=${{ secrets.SWAGGER_SERVER_URL }}
       - name: 'Show output'
         run: |2-
           echo ${{ steps.deploy.outputs.url }}
