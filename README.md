@@ -31,7 +31,7 @@ Customized alerts are provided depending on the caregiver’s needs:
 
 ⸻
 
-🔄 Continuous Feature Expansion  
+### 🔄 Continuous Feature Expansion  
 
 Upcoming features will include:  
 	•	👶 Cry detection  
