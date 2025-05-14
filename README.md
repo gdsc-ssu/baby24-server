@@ -43,6 +43,8 @@ These improvements aim to further enhance safety and accessibility for all types
  ## 💻 Technology
 
  ### Used Google Technology
+ <img width="1043" alt="image" src="https://github.com/user-attachments/assets/d099b109-4b40-43f3-b8f4-0ec85c34ec8c" />
+
 
  🏠 Smart Home Device
 
