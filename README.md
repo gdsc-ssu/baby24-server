@@ -54,5 +54,5 @@ These improvements aim to further enhance safety and accessibility for all types
 ## 👶 Authors  
 |          FE          |          BE          |          BE          |          BE          |            
 | :------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |  :---------------------------------------------------------------------------------------: |  :---------------------------------------------------------------------------------------: | 
-| <img src=""/> | <img src=""/> | <img src=""/> |  <img src=""/> | 
+| <img src=""/> | <img src=""/> | <img src="https://avatars.githubusercontent.com/u/150361814?v=4"/> |  <img src=""/> | 
 |          [성나영](https://github.com/sna0e)          |          [손시연](https://github.com/siyeonSon)          |          [손영웅](https://github.com/handher0)          |          [이상은](https://github.com/KkomSang)          |
