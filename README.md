@@ -77,12 +77,14 @@ Server images are deployed through Artifact Registry.
 The database is managed with **Cloud SQL**.
 The overall infrastructure is managed using Terraform.
 
+ ### 🔎 System Architecture
+![image](https://github.com/user-attachments/assets/6aeb0c9b-e520-4f12-81cd-01c454434bdf)
+
+
  ### 📑 Co-working Tool
  ![swagger](https://img.shields.io/badge/swagger-85EA2D.svg?style=flat-square&logo=swagger&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=flat-square&logo=notion&logoColor=white)
 
- ### 🔎 System Architecture
-![image](https://github.com/user-attachments/assets/6aeb0c9b-e520-4f12-81cd-01c454434bdf)
 
 ## 👶 Authors  
 |          FE          |          BE          |          BE          |          BE          |            
