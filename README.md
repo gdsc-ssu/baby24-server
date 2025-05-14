@@ -4,22 +4,40 @@ What if there were a guardian angel that could watch over your child even while 
 Baby 24 is an inclusive, AI-powered sleep safety system that stays by your child’s side throughout the night and instantly alerts you in moments of danger.
 
 ## ⚙️ Features
+<img width="821" alt="image" src="https://github.com/user-attachments/assets/ea736ece-4550-4dc6-98df-6b006aa9a98b" />
 
-### 1️⃣ Real-Time Infant Sleep Monitoring
-	•	24/7 video streaming using an unused smartphone
-	•	Based on WebRTC technology, allowing caregivers to monitor the baby in real-time
 
-### 2️⃣ AI-Based Suffocation Risk Detection
-	•	Utilizes Google Vertex AI + Gemini API
-	•	Detects suffocation risks such as blankets or pillows covering the baby’s face
+### 🛌 Real-time Infant Sleep Monitoring
 
-### 3️⃣ Smart Home Device Integration for Alerts
-	•	Integrated with SmartThings API
-	•	Sends alerts through various smart home devices like lights, speakers, and TVs
-	•	Alert examples by disability type:
-	•	👂 Hearing impairment: flashing lights, vibration pads, warning messages on TV
-	•	👁️ Visual impairment: audible alerts and voice guidance through smart speakers
-	•	🚶‍♂️ Mobility impairment: automatic emergency messages sent to preset contacts
+Reuses unused smartphones as 24/7 baby monitors, continuously streaming video using WebRTC.
+Allows caregivers to remotely check the baby’s status in real time, anytime and anywhere.
+
+⸻
+
+### 🤖 AI-based Suffocation Risk Detection
+
+Employs Google Vertex AI with Gemini, which performs real-time video analysis to detect suffocation risks with high precision.
+Detects dangerous situations such as blankets or pillows covering the baby’s face, and sends alerts immediately.
+
+⸻
+
+### 🏠 Smart Home Device Integration Alerts
+
+When a threat is detected, sends multi-channel alerts through existing smart home devices via SmartThings API.
+Customized alerts are provided depending on the caregiver’s needs:
+	•	👂 Hearing-impaired: Flashing lights, vibration pads, TV warnings
+	•	👁️ Visually impaired: Audio alarms via smart speakers
+	•	🚶 Mobility-impaired: Emergency messages sent automatically to pre-set contacts
+
+⸻
+
+### 🔄 Continuous Feature Expansion
+
+Upcoming features will include:
+	•	Cry detection
+	•	Fall detection
+	•	Broader smart device support using Google Home API integration
+These improvements aim to further enhance safety and accessibility for all types of caregivers
 
  ## 💻 Technology
 
