@@ -31,13 +31,14 @@ Customized alerts are provided depending on the caregiver’s needs:
 
 ⸻
 
-### 🔄 Continuous Feature Expansion
+🔄 Continuous Feature Expansion
 
 Upcoming features will include:
-	•	Cry detection
-	•	Fall detection
-	•	Broader smart device support using Google Home API integration
-These improvements aim to further enhance safety and accessibility for all types of caregivers
+	•	👶 Cry detection
+	•	🤕 Fall detection
+	•	🌐 Broader smart device support using Google Home API integration
+
+These improvements aim to further enhance safety and accessibility for all types of caregivers.
 
  ## 💻 Technology
 
