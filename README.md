@@ -44,6 +44,37 @@ These improvements aim to further enhance safety and accessibility for all types
 
  ### Used Google Technology
 
+ 🏠 Smart Home Device
+
+The Google Home API allows to utilize many smart home devices.
+When the AI detects a danger situation, it can use smart home devices already installed and registered on Google Home to notify a danger situation.
+Smart home devices are used to provide a form of notification that is easy for anyone to recognize.
+
+⸻
+
+🧠 AI Analysis
+
+Firebase Vertex AI’s Gemini analyzes a child’s sleep situation in real time.
+We are constantly learning models to improve the accuracy of our analysis and to expand the scope of our analysis.
+It detects choking hazards, such as blankets or pillows that cover a baby’s face, or risks of crying or falling.
+
+⸻
+
+🎥 Video Streaming
+
+It provides real-time video streaming using WebRTC.
+WebRTC allows direct communication between devices, which enables fast communication without delay.
+Caregiver can remotely monitor the baby’s sleep status 24 hours a day with their phones, using their smartphones as cameras that are no longer in use.
+
+⸻
+
+⚙️ DevOps
+
+Server images are deployed through Artifact Registry.
+Cloud Run continuously deploys the server by pulling these images.
+The database is managed with Cloud SQL.
+The overall infrastructure is managed using Terraform.
+
  ### 📑 Co-working Tool
  ![swagger](https://img.shields.io/badge/swagger-85EA2D.svg?style=flat-square&logo=swagger&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=flat-square&logo=notion&logoColor=white)
